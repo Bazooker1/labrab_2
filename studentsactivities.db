@@ -1,0 +1,41 @@
+CREATE TABLE activity_type (
+	id_activity_type     INTEGER NOT NULL  PRIMARY KEY  ,
+	activity_type_name   VARCHAR(45) NOT NULL
+ );
+
+CREATE TABLE role (
+	id_role              INTEGER NOT NULL  PRIMARY KEY  ,
+	role_name            VARCHAR(45) NOT NULL    ,
+	role_multiplier      INTEGER NOT NULL
+ );
+
+CREATE TABLE students_group (
+	id_group             INTEGER NOT NULL  PRIMARY KEY  ,
+	group_name           VARCHAR(45) NOT NULL
+ );
+
+CREATE TABLE activities (
+	id_activities        INTEGER NOT NULL  PRIMARY KEY  ,
+	activity_name        VARCHAR(45) NOT NULL    ,
+	id_activity_type     INTEGER NOT NULL    ,
+	FOREIGN KEY ( id_activity_type ) REFERENCES activity_type( id_activity_type )
+ );
+
+CREATE TABLE students (
+	id_students          INTEGER NOT NULL  PRIMARY KEY  ,
+	fio                  VARCHAR(45) NOT NULL    ,
+	sex                  VARCHAR(20) NOT NULL    ,
+	date_of_birth        DATE NOT NULL    ,
+	id_group             INTEGER NOT NULL    ,
+	FOREIGN KEY ( id_group ) REFERENCES students_group( id_group )
+ );
+
+CREATE TABLE students_has_activities (
+	id_activities        INTEGER NOT NULL    ,
+	id_students          INTEGER NOT NULL    ,
+	id_role              INTEGER NOT NULL    ,
+	FOREIGN KEY ( id_activities ) REFERENCES activities( id_activities )  ,
+	FOREIGN KEY ( id_students ) REFERENCES students( id_students )  ,
+	FOREIGN KEY ( id_role ) REFERENCES role( id_role )
+ );
+
